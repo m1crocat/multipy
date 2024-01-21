@@ -1,6 +1,6 @@
-current_version = "3.1.6"
+current_version = "3.1.7"
 release_type = "stable"
-version_date = "09.11.23"
+version_date = "18.01.24"
 config_file = 'config.json'
 
 from random import *
@@ -15,7 +15,7 @@ import main_beta
 import json
 import traceback
 
-def amogus():
+def amogus():#инет
             speed(15)
             color1 = (randint(0, 255), randint(0, 255), randint(0, 255))
             color2 = (randint(0, 255), randint(0, 255), randint(0, 255))
@@ -83,7 +83,7 @@ def amogus():
             right(260)
             forward(30)
             end_fill()
-def toggleUpdates():
+def toggleUpdates():#MystieHum\нейросеть
 
     if os.path.exists(config_file):
         with open(config_file) as f:
@@ -109,7 +109,7 @@ def toggleUpdates():
     with open(config_file, 'w') as f:
         json.dump(config, f)
 
-if __name__ == '__main__':
+if __name__ == '__main__':#MystieHum\нейросеть
     
     toggleUpdates()
     
@@ -125,7 +125,7 @@ if __name__ == '__main__':
     else:
         print("Обновления включены по умолчанию")
 
-def miscMenu():
+def miscMenu():#MystieHum\нейросеть
 	try:
 		while True:
 			choice = int(input("\n1 - проверить обновления\n2 - настроить проверку обновлений\n3 - переключить ветку обновлений\n4 - скачать последную версию\n5 - выйти в главное меню\nВыберите опцию: "))
@@ -144,17 +144,17 @@ def miscMenu():
 	except ValueError:
 		print("Неправильное значение! Должно быть от 1 до 5!")
 
-def dlLastVer():
+def dlLastVer():#MystieHum\нейросеть
 	if os.path.exists(config_file):
 		with open(config_file) as f:
 			config = json.load(f)
 	branch = config['update_branch']
-	version_url = f'https://raw.githubusercontent.com/m1cro-cat/multipy/{branch}/latest_version.txt'
+	version_url = f'https://raw.githubusercontent.com/m1crocat/multipy/{branch}/latest_version.txt'
 	version_response = requests.get(version_url)
 
 	if version_response.status_code == 200:
 		latest_version = version_response.text.strip()
-		zip_url = f'https://github.com/m1cro-cat/multipy/archive/{branch}.zip'
+		zip_url = f'https://github.com/m1crocat/multipy/archive/{branch}.zip'
 		save_file = f'mpy-{latest_version}-{branch}.zip'
 		save_path = os.path.join(os.getcwd(), save_file)
 
@@ -169,9 +169,9 @@ def dlLastVer():
 		print("Произошла ошибка при скачивании. Простите позязя :(")
 		return None
 
-def prt():
+def prt():#я
     print(" <<MultiPy>> \n 1 - PaintGPT \n 2 - О MultiPy \n 3 - Что нового? \n 4 - Игра КНБ \n 5 - Игра Угадай число \n 6 - Секундомер \n 7 - Таймер обратного отсчета \n 8 - Разное \n 9 - Бросить кубик \n 10 - Погода \n 11 - Генератор \n 12 - Base64 \n 13 - Узнать длину строки (len) \n 14 - Beta \n 15 - Ping \n 16 - Обновления \n 17 - Конвертор(alpha)")
-def convertor():
+def convertor():#я
             ipt = input("Введите из чего в что вы хотите перевести \nДоступно: все от мм до км, все от байтов до тб\nНапример: байты - тб, метры - см\n(введите 0 для выхода): ").lower()
             while ipt != "0":
                 # мм
@@ -325,12 +325,12 @@ def convertor():
                     per1 = int(input("Введите тб: "))
                     print("Результат:", per1 * 1024)
 
-def updateProgram():
+def updateProgram():#MystieHum\нейросеть
 	if os.path.exists(config_file):
 		with open(config_file) as f:
 			config = json.load(f)
 	branch = config['update_branch']
-	url = f'https://github.com/m1cro-cat/multipy/archive/{branch}.zip'
+	url = f'https://github.com/m1crocat/multipy/archive/{branch}.zip'
 	update_zip = os.path.join('cache', 'update.zip')
 	os.makedirs('cache', exist_ok=True)
 	response = requests.get(url)
@@ -352,7 +352,7 @@ def updateProgram():
 	args = [sys.executable] + sys.argv
 	os.execv(sys.executable, args)
 
-def checkForUpdates():
+def checkForUpdates():#MystieHum\нейросеть
 	if os.path.exists(config_file):
 		with open(config_file) as f:
 			config = json.load(f)
@@ -364,7 +364,7 @@ def checkForUpdates():
 	cache_folder = 'cache'
 	if not os.path.exists(cache_folder):
 		os.mkdir(cache_folder)
-	latest_version_url = f'https://raw.githubusercontent.com/m1cro-cat/multipy/{branch}/latest_version.txt'
+	latest_version_url = f'https://raw.githubusercontent.com/m1crocat/multipy/{branch}/latest_version.txt'
 	latest_version_path = os.path.join(cache_folder, 'latest_version.txt')
 	if not os.path.exists(latest_version_path):
 		response = requests.get(latest_version_url)
@@ -386,7 +386,7 @@ def checkForUpdates():
 		print("Обновлений не найдено!\n")
 		shutil.rmtree(os.path.join('cache'))
 
-def switchBranch():
+def switchBranch():#MystieHum\нейросеть
 	while True:
 		if os.path.exists(config_file):
 			with open(config_file) as f:
@@ -408,7 +408,7 @@ def switchBranch():
 			break
 		print(f"Вы переключились на ветку {config['update_branch']}.")
 
-def paintgpt():
+def paintgpt():#полностью я
     try:
         def paint():
             # задаю цвет
@@ -421,7 +421,7 @@ def paintgpt():
             # генерация 
             pensize(randint(4, 10))
             cur1 = randint(10, 200)
-            ran1 = randint(1,9)
+            ran1 = randint(1,10)
             # рандомные координаты
             penup()
             goto(randint(-250, 250), randint(-250, 250))
@@ -525,15 +525,19 @@ def paintgpt():
                         forward(ran2)
                         left(60)
                     end_fill()
+            if ran1 == 10:
+                for i in range(25):
+                    forward(10)
+                    left(25)
         while True:
             paint()
     except Exception:
                 print("PaintGPT закрыт")
 
-def info():
-    print(f"\nПрограмма MultiPy.\nВерсия {current_version} {release_type} от {version_date}.\nНекоторые пункты взяты из интернета, я не писал их сам.\nТакже ОГРОМНОЕ спасибо MystieHum и Claude за помощь в некоторых командах и моментах")
+def info():#я
+    print(f"\nПрограмма MultiPy.\nВерсия {current_version} {release_type} от {version_date}.")
 
-def igraUgadaika():
+def igraUgadaika():#я
     count1 = 1
     print("Угадайте число от 1 до 100! (Введите 0 если хотите сдаться)")
     count = randint(1,100)
@@ -560,7 +564,7 @@ def igraUgadaika():
         print("Вы угадали!")
         print("Количество попыток:", count1)
 
-def stopwatch():
+def stopwatch():#инет\нейросеть
     print("Нажмите Enter чтобы начать, Ctrl+C чтобы остановить")
     try:
         input()
@@ -577,7 +581,7 @@ def stopwatch():
     except KeyboardInterrupt:
         print("\nСекундомер остановлен!")
 
-def timer():
+def timer():#инет\нейросеть
     try:
         my_time = int(input("Таймер обратного отсчета. Введите секунды: "))
                 
@@ -598,7 +602,7 @@ def timer():
     except ValueError:
         print("Неправильное значение!")
 
-def raznoe():
+def raznoe():#я
     ipt1 = int(input("1 - Интересный узор\n2 - AMOGUS\n3 - Бенчмарк\nВыберите что-нибудь: "))
     if ipt1 == 1:
         try:
@@ -619,13 +623,13 @@ def raznoe():
          bench()
     else:
         print("дУ ю СпИк ИнГлИш?!!?")
-def bench():
+def bench():#я(идея моя)
      input("Для начала теста нажмите Enter: ")
      time_st = time()
      sleep(5)
      time_end = time()
      print("Результат теста:", (time_end - time_st) - 5, "сек. время вычислений")
-def weather():
+def weather():# нейросеть
     print("Команда полностью написана через ChatGPT")
     city = input("Введите название города: ")
     api_key = '9f847b92b31f51a681d9792e18973c03'
@@ -644,7 +648,7 @@ def weather():
     else:
         print("Не удалось получить данные о погоде") 
 
-def gen():
+def gen(): #частично я частично инет
     per1 = int(input("1 - генератор букв, 2 - генератор цифр, 3 - генератор пароля(буквы + цифры): "))
     if per1 == 1:
         per2 = ""
@@ -693,7 +697,7 @@ def gen():
             per2 = per2[:passLength]
         print(per2)
 
-def base64fun():
+def base64fun():#интернет
     q = int(input("1 - зашифровать, 2 - расшифровать: "))
     if q == 2:
         encoded_string = input("Введите строку для расшифрования: ")
@@ -707,16 +711,18 @@ def base64fun():
         s1 = e.decode("UTF-8")
         print(s1)
 
-def length():
+def length():#я
     per3 = input("Введите строку: ")
     print("Длина строки:", len(per3))
 
-def ping():
+def ping():#я
     i1 = input("Введите ip, или доменное имя для пинга (укажите после ip -t если надо пинговать бесконечно): ")
     print(os.system(f"ping {i1}"))
 
-def changelog():
+def changelog():#я
     print("\nЛист обновлений!\n")
+    print("3.1.7 - 18.01.24")
+    print("Мини-обнова. MystieHum больше не разработчик программы. ")
     print("3.1.6 - 09.11.23")
     print("Обновление, аМоГуС в PaintGPT")
     print("3.1.5.9 - 09.11.23")
@@ -769,19 +775,9 @@ def changelog():
     print("Полная переделка кода, убрал лишние функции, которые уже не актуальны. Также добавил кучу всего!\n")
     print("1.5.0 - 16.07.23")
     print("Переименовал в projectpb \nДобавил много функций\n")
-    print("1.4.0 - 13.07.23")
-    print("Сделал удобнее управление \nПеределал работу погоды \nДобавил таймер и секундомер \nДобавил игру КНБ\n")
-    print("1.3.1 - 12.07.23")
-    print("Добавил имена комментаторов!\n")
-    print("1.3 - 12.07.23")
-    print("Добавил функцию DevSettingsOn (тест всего разного))\n")
-    print("1.2 - 05.07.23")
-    print("Несколько небольших изменений\n")
-    print("1.1 - 04.07.23")
-    print("Удален пункт мерч, как так он никому не нужен")
-    print("Добавлены новые функции\n")
 
-def knb():
+
+def knb():#я
     response = int(input("Камень(1), ножницы(2), или бумага?(3) (0 - выход, если вы обиделись введите 4): "))
     while response != 0:
         randomAnswer = randint(1,3)
