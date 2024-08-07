@@ -1,5 +1,5 @@
-current_version = "4.0.0"
-version_date = "10.07.24"
+current_version = "4.1.0"
+version_date = "07.08.24"
 
 
 from random import *
@@ -8,10 +8,48 @@ from turtle import *
 import os
 import base64
 
+def info():#я
+    print(f"\nПрограмма MultiPy.\nВерсия {current_version} от {version_date}.\nТелеграм-канал программы - multipy\nТелеграмм разработчика - m1cro_cat\n")
 
-def prt():#я
-        print()
-    #
+def changelog():#я
+    print(" Changelog")
+    print(f" 4.1.0 - {version_date}")
+    print(" Новые функции!\n Улучшение игры КНБ\n Добавление игры\n Улучшение работы генератора паролей\n Линукс команды")
+
+
+def linux():
+    q = int(input("Линукс команды\n1 - neofetch\n2 - uname -a\n3 - sudo apt update\n4 - sudo apt upgrade -y\n5 - sudo apt autoremove\n6 - update & upgrade -y\n999 - Своя команда\n0 - Выход \n\nВведите значение: "))
+    print("\n")
+    while q != "0":
+        if q == 1:
+            print(os.system("neofetch "))
+            print("\n")
+        elif q == 2:
+            print(os.system("uname -a"))
+            print("\n")
+        elif q == 3:
+            print(os.system("sudo apt update"))
+            print("\n")
+        elif q == 4:
+            print(os.system("sudo apt upgrade -y"))
+            print("\n")
+        elif q == 5:
+            print(os.system("sudo apt autoremove"))
+            print("\n")
+        elif q == 6:
+            print(os.system("sudo apt update & upgrade -y"))
+            print("\n")
+        elif q == 999:
+            c = input("Введите команду: ")
+            print(os.system(c))
+        elif q == 0:
+            break
+        else:
+            print("Введите корректное значение")
+            print("\n")
+        q = int(input("Линукс команды\n1 - neofetch\n2 - uname -a\n3 - sudo apt update\n4 - sudo apt upgrade -y\n5 - sudo apt autoremove\n6 - update & upgrade -y\n999 - Своя команда\n0 - Выход \n\nВведите значение: "))
+        print("\n")
+
 def convertor():#я
             ipt = input("Введите из чего в что вы хотите перевести \nДоступно: все от мм до км, все от байтов до тб\nНапример: байты - тб, метры - см\n(введите 0 для выхода): ").lower()
             while ipt != "0":
@@ -168,6 +206,7 @@ def convertor():#я
 
 def paintgpt():#полностью я
     try:
+        spd = int(input("Введите скорость: "))
         def paint():
             # задаю цвет
             colormode(255)
@@ -175,9 +214,11 @@ def paintgpt():#полностью я
             color2 = (randint(0, 255), randint(0, 255), randint(0, 255))
             color(color1, color2)
             #скорость
-            speed(10)
+            speed(spd)
+            #поворот
+            left(randint(1, 359))
             # генерация 
-            pensize(randint(4, 10))
+            pensize(randint(4, 12))
             cur1 = randint(10, 200)
             ran1 = randint(1,10)
             # рандомные координаты
@@ -226,13 +267,14 @@ def paintgpt():#полностью я
             if ran1 == 6:
                 # спираль
                 per11 = 0
+                pensize(randint(1, 10))
                 for i in range(randint(10, 36)):
                     forward(per11)  
                     per11 += 5
                     left(90) 
             if ran1 == 7:
                 # пончик
-                speed(15)
+                speed(spd + 20)
                 r = randint(0, 255)
                 g = randint(0, 255)
                 b = randint(0, 255)
@@ -246,26 +288,24 @@ def paintgpt():#полностью я
                     forward(100)
                     left(120)
                     left(10) 
-                    speed(10)
             if ran1 == 8:
                 # ромб
+                rand = randint(50,150)
                 if randint(1,2) == 1:
-                    ran2 = randint(50,150)
                     left(randint(0,360))
                     for i in range(2):
                         left(45)
-                        forward(ran2)
+                        forward(rand)
                         left(135)
-                        forward(ran2)
+                        forward(rand)
                 else:
                     begin_fill()
-                    ran2 = randint(50,150)
                     left(randint(0,360))
                     for i in range(2):
                         left(45)
-                        forward(ran2)
+                        forward(rand)
                         left(135)
-                        forward(ran2)
+                        forward(rand)
                     end_fill()
             if ran1 == 9:
                 # шестиугольник
@@ -290,9 +330,6 @@ def paintgpt():#полностью я
     except Exception:
                 print("PaintGPT закрыт")
 
-def info():#я
-    print(f"\nПрограмма MultiPy.\nВерсия {current_version} от {version_date}.")
-
 def igraUgadaika():#я
     count1 = 1
     print("Угадайте число от 1 до 100! (Введите 0 если хотите сдаться)")
@@ -311,7 +348,7 @@ def igraUgadaika():#я
             print("Вам с шансем 1% выпало число больше 100! Число", count)
         elif price > count and price != 0:
             print("Число меньше!")
-        elif price < count:
+        elif price < count :
             print("Число больше!")
         else:
             break
@@ -325,7 +362,6 @@ def stopwatch():#инет\нейросеть
     try:
         input()
         start = perf_counter()
-
         while True:
             elapsed = perf_counter() - start
             hours = str(int(elapsed / 3600)).zfill(2)
@@ -340,7 +376,6 @@ def stopwatch():#инет\нейросеть
 def timer():#инет\нейросеть
     try:
         my_time = int(input("Таймер обратного отсчета. Введите секунды: "))
-                
         end = time() + my_time
         while time() < end:
             remaining = end - time()
@@ -354,17 +389,8 @@ def timer():#инет\нейросеть
             sleep(0.01)
                     
         print("\r\nВремя вышло!")
-                
     except ValueError:
         print("Неправильное значение!")
-
-def bench():#я(идея моя)
-     input("Для начала теста нажмите Enter: ")
-     time_st = time()
-     sleep(5)
-     time_end = time()
-     print("Результат теста:", (time_end - time_st) - 5, "сек. время вычислений")
-
 
 def gen(): #частично я частично инет
     per1 = int(input("1 - генератор букв, 2 - генератор цифр, 3 - генератор пароля(буквы + цифры): "))
@@ -387,33 +413,18 @@ def gen(): #частично я частично инет
             per2 += alph[randint(0, (len(alph) - 1))]
         print(per2)
     if per1 == 2:
-        passLength = int(input("Введите длину пароля: "))
+        passLength = int(input("Введите длину: "))
         per1 = ""
         for i in range(passLength):
             per1 += str(randint(0,9))
         print(per1)
     if per1 == 3:
-        per2 = ""
+        password = ""
         passLength = int(input("Введите длину: "))
-        alphEn = "abcdefghijklmnopqrstuvwxyz"
-        alphRu = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
-        lang = input("А какой язык? en / ru / all? ").lower()
-        if lang == "ru":
-            alph = alphRu
-        elif lang == "en":  
-            alph = alphEn
-        elif lang == "all":
-            alph = "" 
-            alph += alphRu
-            alph += alphEn
+        alph = 'ABCDEFGHIJKLANOPQRSTUVWXYZabcdefghijklanopqrstuvwxyz123456789~!@#$%^&*()-_+=|/:;"<,>.?/' #thks to rodion
         for i in range(passLength):
-            per2 += alph[randint(0, len(alph)-1)]
-            if randint(1,3) == 1:
-                for i in range(randint(1, 3)):
-                    per2 += str(randint(0,9))
-        if len(per2) > passLength:
-            per2 = per2[:passLength]
-        print(per2)
+            password += alph[randint(0, 81)]
+        print(password)
 
 def base64fun():#интернет
     q = int(input("1 - зашифровать, 2 - расшифровать: "))
@@ -437,34 +448,128 @@ def ping():#я
     i1 = input("Введите ip, или доменное имя для пинга (или укажите параметр -t на windows, если надо пинговать бесконечно): ")
     print(os.system(f"ping {i1}"))
 
-def changelog():#я
-    print("\nЛист обновлений!\n")
-    print("4.0.0 - 10.07.24")
-
 def knb():#я
-    response = int(input("Камень(1), ножницы(2), или бумага?(3) (0 - выход, если вы обиделись введите 4): "))
+    response = int(input("Камень(1), ножницы(2), или бумага?(3) (0 - выход): "))
+    point_user = 0
+    point_prog = 0
     while response != 0:
         randomAnswer = randint(1,3)
         if randomAnswer == 1 and response == 1:
             per1 = "Камень, ничья!"
         if randomAnswer == 1 and response == 2:
             per1 = "Камень, я победил!"
+            point_prog += 1
         if randomAnswer == 1 and response == 3:
             per1 = "Камень, ты победил!"
+            point_user += 1
         if randomAnswer == 2 and response == 1:
             per1 = "Ножницы, ты победил!"
+            point_user += 1
         if randomAnswer == 2 and response == 2:
             per1 = "Ножницы, ничья!"
         if randomAnswer == 2 and response == 3:
             per1 = "Ножницы, я победил!"
+            point_prog += 1
         if randomAnswer == 3 and response == 1:
             per1 = "Бумага, я победил!"
+            point_prog += 1
         if randomAnswer == 3 and response == 2:
             per1 = "Бумага, ты победил!"
+            point_user += 1
         if randomAnswer == 3 and response == 3:
             per1 = "Бумага, ничья!"
-        elif response == 4:
-            print("Игра закончена, вы победили и получаете шоколадную медальку! :3")
-            break
         print(per1)
-        response = int(input("Камень(1), ножницы(2), или бумага?(3) (0 - выход, если вы обиделись введите 4): "))
+        response = int(input("Камень(1), ножницы(2), или бумага?(3) (0 - выход): "))
+        if point_prog >= 3:
+                print("Ты проиграл!")
+                break
+        if point_user >= 3:
+                print("Ты победил!")
+                break
+
+def game_sherepash():
+    def prnt(t):
+        t.speed(30)
+        t.penup()
+        t.goto(-200, -200)
+        t.pendown()
+        for i in range(4):
+            t.forward(400)
+            t.left(90)
+    def game(t, s):
+        t1.onclick(clck1)
+        t2.onclick(clck2)
+        t3.onclick(clck3)
+        t.forward(10)
+        sleep(s)
+    def setting(t, c, m):
+        t.penup()
+        t.goto(0,0)
+        t.color(c)
+        t.speed(5)
+        t.shape("turtle")
+        t.left(m)
+    def clck1(x, y):
+        t1.left(randint(1, 359))
+        t1.goto(randint(-100, 100), randint(-100, 100))
+    def clck2(x, y):
+        t2.left(randint(1, 359))
+        t2.goto(randint(-100, 100), randint(-100, 100))
+    def clck3(x, y):
+        t3.left(randint(1, 359))
+        t3.goto(randint(-100, 100), randint(-100, 100))
+    def gamefinish():
+        if abs(t1.xcor()) >= 200 or abs(t1.ycor()) >= 200:
+            if t1.xcor() >= -10:
+                t1.setheading(180)
+                t1.goto(-180, t1.ycor())
+            t1.write("GAME OVER!", font=("Arial", 40, "italic"))
+            return False
+        elif abs(t2.xcor()) >= 200 or abs(t2.ycor()) >= 200:
+            if t2.xcor() >= -10:
+                t2.setheading(180)
+                t2.goto(-180, t2.ycor())
+            t2.write("GAME OVER!", font=("Arial", 40, "italic"))
+            return False
+        elif abs(t3.xcor()) >= 200 or abs(t3.ycor()) >= 200:
+            if t3.xcor() >= -10:
+                t3.setheading(180)
+                t3.goto(-180, t3.ycor())
+            t3.write("GAME OVER!", font=("Arial", 40, "italic"))
+            return False
+        else:
+            return True
+    spd = int(input("Привет! Какой уровень сложности от 1 до 3 ты хочешь выбрать? "))
+    while spd:
+        if spd == 1:
+            spdgame = 0.2
+            break
+        elif spd == 2:
+            spdgame = 0.1
+            break
+        elif spd == 3:
+            spdgame = 0.01
+            break
+        elif spd == 4:
+            spdgame = 0.0000001
+            break
+        else:
+            print("Вы ввели недопустимый уровень :(")
+            spd = int(input("Какой уровень сложности от 1 до 3 ты хочешь выбрать? "))
+    t1 = Turtle()
+    t2 = Turtle()
+    t3 = Turtle()
+    prnt(t1)
+    setting(t1, "red", 0)
+    setting(t2, "green", 120)
+    setting(t3, "blue", 240)
+    strt_time = time()
+    while gamefinish():
+        game(t1, spdgame)
+        game(t2, spdgame)
+        game(t3, spdgame)
+    end_time = time()
+    print("Вы набрали", int(end_time - strt_time), "баллов!")
+    t1.hideturtle()
+    t2.hideturtle()
+    t3.hideturtle()
