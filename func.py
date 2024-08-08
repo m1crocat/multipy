@@ -1,45 +1,54 @@
-current_version = "4.1.0"
-version_date = "07.08.24"
-
-
+current_version = "4.1.1"
+version_date = "08.08.24"
 from random import *
 from time import *
 from turtle import *
 import os
 import base64
 
+prnt_unix = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Changelog\n 5 - Linux\n 0 - Выход"
+prnt_other = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Changelog\n 0 - Выход"
+clear_command = ""
+if os.name == "posix":
+    prnt = prnt_unix
+    # clear_command = "clear"
+else:
+    prnt = prnt_other
+    # clear_command = "clr"
+
+
 def info():#я
-    print(f"\nПрограмма MultiPy.\nВерсия {current_version} от {version_date}.\nТелеграм-канал программы - multipy\nТелеграмм разработчика - m1cro_cat\n")
+    print(f"\nПрограмма MultiPy.\nВерсия {current_version} от {version_date}.\nТелеграм-канал программы - multipy_prog\nТелеграмм разработчика - m1cro_cat\n")
 
 def changelog():#я
     print(" Changelog")
-    print(f" 4.1.0 - {version_date}")
-    print(" Новые функции!\n Улучшение игры КНБ\n Добавление игры\n Улучшение работы генератора паролей\n Линукс команды")
+    print(f">>{current_version} - {version_date}<<")
+    print(">Багфикс\n>Улучшение функции linux\n")
 
 
 def linux():
-    q = int(input("Линукс команды\n1 - neofetch\n2 - uname -a\n3 - sudo apt update\n4 - sudo apt upgrade -y\n5 - sudo apt autoremove\n6 - update & upgrade -y\n999 - Своя команда\n0 - Выход \n\nВведите значение: "))
+    q = int(input("Линукс команды\n1 - Своя команда\n2 - neofetch\n3 - uname -a\n4 - sudo apt update\n5 - sudo apt upgrade -y\n6 - sudo apt autoremove\n7 - update & upgrade -y\n0 - Выход \n\nВведите значение: "))
     print("\n")
     while q != "0":
-        if q == 1:
+        if q == 2:
             print(os.system("neofetch "))
             print("\n")
-        elif q == 2:
+        elif q == 3:
             print(os.system("uname -a"))
             print("\n")
-        elif q == 3:
+        elif q == 4:
             print(os.system("sudo apt update"))
             print("\n")
-        elif q == 4:
+        elif q == 5:
             print(os.system("sudo apt upgrade -y"))
             print("\n")
-        elif q == 5:
+        elif q == 6:
             print(os.system("sudo apt autoremove"))
             print("\n")
-        elif q == 6:
-            print(os.system("sudo apt update & upgrade -y"))
+        elif q == 7:
+            print(os.system("sudo apt update && sudo apt upgrade -y"))
             print("\n")
-        elif q == 999:
+        elif q == 1:
             c = input("Введите команду: ")
             print(os.system(c))
         elif q == 0:
@@ -47,7 +56,7 @@ def linux():
         else:
             print("Введите корректное значение")
             print("\n")
-        q = int(input("Линукс команды\n1 - neofetch\n2 - uname -a\n3 - sudo apt update\n4 - sudo apt upgrade -y\n5 - sudo apt autoremove\n6 - update & upgrade -y\n999 - Своя команда\n0 - Выход \n\nВведите значение: "))
+        q = int(input("Линукс команды\n1 - Своя команда\n2 - neofetch\n3 - uname -a\n4 - sudo apt update\n5 - sudo apt upgrade -y\n6 - sudo apt autoremove\n7 - update & upgrade -y\n0 - Выход \n\nВведите значение: "))
         print("\n")
 
 def convertor():#я
