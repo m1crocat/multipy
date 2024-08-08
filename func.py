@@ -6,17 +6,6 @@ from turtle import *
 import os
 import base64
 
-prnt_unix = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Changelog\n 5 - Linux\n 0 - Выход"
-prnt_other = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Changelog\n 0 - Выход"
-clear_command = ""
-if os.name == "posix":
-    prnt = prnt_unix
-    # clear_command = "clear"
-else:
-    prnt = prnt_other
-    # clear_command = "clr"
-
-
 def info():#я
     print(f"\nПрограмма MultiPy.\nВерсия {current_version} от {version_date}.\nТелеграм-канал программы - multipy_prog\nТелеграмм разработчика - m1cro_cat\n")
 
