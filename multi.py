@@ -1,5 +1,4 @@
 from func import *
-
 print(f""" 
  m    m m    m m     mmmmmmm mmmmm  mmmmm m     m
  ##  ## #    # #        #      #    #   "# "m m" 
@@ -7,15 +6,15 @@ print(f"""
  # "" # #    # #        #      #    #        #   
  #    # "mmmm" #mmmmm   #    mm#mm  #        #   {current_version} by m1cro_cat
 """)
-prnt_unix = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Changelog\n 5 - Linux\n 0 - Выход"
+prnt_unix = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Changelog\n 5 - Linux\n \n 0 - Выход"
 prnt_other = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Changelog\n 0 - Выход"
 clear_command = ""
 if os.name == "posix":
     prnt = prnt_unix
-    # clear_command = "clear"
+    clear_command = "clear"
 else:
     prnt = prnt_other
-    # clear_command = "clr"
+    clear_command = "clr"
 print(prnt)
 ipt = int(input("\nВыберите действие: "))
 while ipt != 0:

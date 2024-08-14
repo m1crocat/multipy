@@ -1,5 +1,5 @@
-current_version = "4.1.1"
-version_date = "08.08.24"
+current_version = "4.1.2"
+version_date = "14.08.24"
 from random import *
 from time import *
 from turtle import *
@@ -7,49 +7,119 @@ import os
 import base64
 
 def info():#я
-    print(f"\nПрограмма MultiPy.\nВерсия {current_version} от {version_date}.\nТелеграм-канал программы - multipy_prog\nТелеграмм разработчика - m1cro_cat\n")
+    print(f"\nПрограмма MultiPy.\nВерсия {current_version} от {version_date}.\nТелеграмм разработчика - m1cro_cat\n")
 
 def changelog():#я
     print(" Changelog")
     print(f">>{current_version} - {version_date}<<")
-    print(">Багфикс\n>Улучшение функции linux\n")
-
+    print(">Багфикс\nЗначительная переделка функции линукс команд>")
 
 def linux():
-    q = int(input("Линукс команды\n1 - Своя команда\n2 - neofetch\n3 - uname -a\n4 - sudo apt update\n5 - sudo apt upgrade -y\n6 - sudo apt autoremove\n7 - update & upgrade -y\n0 - Выход \n\nВведите значение: "))
+    q = int(input("Линукс команды\n1 - Установка софта через apt\n2 - apt\n3 - Системные команды\n0 - Выход\n\nВведите значение: "))
     print("\n")
-    while q != "0":
-        if q == 2:
-            print(os.system("neofetch "))
+    while q != 0:
+        if q == 1:
+                q = int(input("Установка разного софта\n*(может не работать на некоторых дистрибутивах)\n1 - Ввести свой пакет\n2 - firefox\n3 - vlc\n4 - obs-studio\n5 - gimp\n6 - vscode\n7 - telegram-desktop*\n8 - Thunderbird\n9 - steam*\n0 - Выход \n\nВведите значение: "))
+                print("\n")
+                while q != 0:
+                    if q == 3:
+                        print(os.system("""
+                                        sudo install -d -m 0755 /etc/apt/keyrings && wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null && echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null && echo '
+                                        Package: *
+                                        Pin: origin packages.mozilla.org
+                                        Pin-Priority: 1000
+                                        ' | sudo tee /etc/apt/preferences.d/mozilla  && sudo apt-get update && sudo apt-get install firefox
+                                        """))
+                        print("\n")
+                    elif q == 4:
+                        print(os.system("sudo apt install vlc"))
+                        print("\n")
+                    elif q == 5:
+                        print(os.system("sudo apt install obs-studio"))
+                        print("\n")
+                    elif q == 6:
+                        print(os.system("sudo apt install gimp"))
+                        print("\n")
+                    elif q == 6:
+                        print(os.system(""""
+                                        sudo apt-get install wget gpg
+                                        wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+                                        sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+                                        echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
+                                        rm -f packages.microsoft.gpg
+                                        sudo apt update && sudo apt install code
+                                        """))
+                        print("\n")
+                    
+                    elif q == 7:
+                        print(os.system("sudo apt install telegram-desktop"))
+                        print("\n")
+                    elif q == 8:
+                        print(os.system("sudo apt install thunderbird"))
+                        print("\n")
+                    elif q == 9:
+                        print(os.system("sudo apt install steam"))
+                        print("\n")
+                    elif q == 1:
+                        c = input("Введите пакет для установки: ")
+                        print(os.system(f"sudo apt install {c}"))
+                        print("\n")
+                    else:
+                        print("Введите корректное значение")
+                        print("\n")
+                q = int(input("Установка разного софта\n*(может не работать на некоторых дистрибутивах)\n1 - Ввести свой пакет\n2 - firefox\n3 - vlc\n4 - obs-studio\n5 - gimp\n6 - vscode\n7 - telegram-desktop*\n8 - Thunderbird\n9 - steam*\n0 - Выход \n\nВведите значение: "))
+                print("\n")
+        elif q == 2:
+            q = int(input("apt команды\n1 - Своя команда\n2 - sudo apt update\n3 - sudo apt upgrade -y\n4 - sudo apt autoremove\n5 - update & upgrade -y\n0 - Выход \n\nВведите значение: "))
             print("\n")
+            while q != 0:
+                if q == 2:
+                    print(os.system("sudo apt update"))
+                    print("\n")
+                elif q == 3:
+                    print(os.system("sudo apt upgrade -y"))
+                    print("\n")
+                elif q == 4:
+                    print(os.system("sudo apt autoremove"))
+                    print("\n")
+                elif q == 5:
+                    print(os.system("sudo apt update && sudo apt upgrade -y"))
+                    print("\n")
+                elif q == 1:
+                    c = input("Введите команду: ")
+                    print(os.system(c))
+                    print("\n")
+                else:
+                    print("Введите корректное значение")
+                    print("\n")
+                q = int(input("apt команды\n1 - Своя команда\n2 - sudo apt update\n3 - sudo apt upgrade -y\n4 - sudo apt autoremove\n5 - update & upgrade -y\n0 - Выход \n\nВведите значение: "))
+                print("\n")
         elif q == 3:
-            print(os.system("uname -a"))
+            q = int(input("Системные команды\n1 - Своя команда\n2 - neofetch\n3 - uname -a\n0 - Выход \n\nВведите значение: "))
             print("\n")
-        elif q == 4:
-            print(os.system("sudo apt update"))
-            print("\n")
-        elif q == 5:
-            print(os.system("sudo apt upgrade -y"))
-            print("\n")
-        elif q == 6:
-            print(os.system("sudo apt autoremove"))
-            print("\n")
-        elif q == 7:
-            print(os.system("sudo apt update && sudo apt upgrade -y"))
-            print("\n")
-        elif q == 1:
-            c = input("Введите команду: ")
-            print(os.system(c))
-        elif q == 0:
-            break
+            while q != 0:
+                if q == 2:
+                    print(os.system("neofetch "))
+                    print("\n")
+                elif q == 3:
+                    print(os.system("uname -a"))
+                    print("\n")
+                elif q == 1:
+                    c = input("Введите команду: ")
+                    print(os.system(c))
+                    print("\n")
+                else:
+                    print("Введите корректное значение")
+                    print("\n")
+                q = int(input("Системные команды\n1 - Своя команда\n2 - neofetch\n3 - uname -a\n0 - Выход \n\nВведите значение: "))
+                print("\n")
         else:
             print("Введите корректное значение")
             print("\n")
-        q = int(input("Линукс команды\n1 - Своя команда\n2 - neofetch\n3 - uname -a\n4 - sudo apt update\n5 - sudo apt upgrade -y\n6 - sudo apt autoremove\n7 - update & upgrade -y\n0 - Выход \n\nВведите значение: "))
+        q = int(input("Линукс команды\n1 - Установка софта через apt\n2 - apt\n3 - Системные команды\n0 - Выход\n\nВведите значение: "))
         print("\n")
-
 def convertor():#я
-            ipt = input("Введите из чего в что вы хотите перевести \nДоступно: все от мм до км, все от байтов до тб\nНапример: байты - тб, метры - см\n(введите 0 для выхода): ").lower()
+            ipt = input("Введите из чего в что вы хотите перевести \nДоступно: от мм до км, от байтов до тб\nНапример: байты - тб, метры - см\n(введите 0 для выхода): ").lower()
             while ipt != "0":
                 # мм
                 if ipt == "мм - см":
@@ -135,15 +205,12 @@ def convertor():#я
                 elif ipt == "кб - байты":
                     per1 = int(input("Введите кб: "))
                     print("Результат:", per1 * 1024)
-
                 elif ipt == "кб - мб":
                     per1 = int(input("Введите кб: "))
                     print("Результат:", per1 / 1024)
-
                 elif ipt == "кб - гб":
                     per1 = int(input("Введите кб: "))
                     print("Результат:", per1 / 1024**2)
-
                 elif ipt == "кб - тб":
                     per1 = int(input("Введите кб: "))
                     print("Результат:", per1 / 1024**3)
@@ -153,51 +220,40 @@ def convertor():#я
                 elif ipt == "мб - байты":
                     per1 = int(input("Введите мб: "))
                     print("Результат:", per1 * 1024**2)
-
                 elif ipt == "мб - кб":
                     per1 = int(input("Введите мб: "))
                     print("Результат:", per1 * 1024)
-
                 elif ipt == "мб - гб":
                     per1 = int(input("Введите мб: "))
                     print("Результат:", per1 / 1024)
-
                 elif ipt == "мб - тб":
                     per1 = int(input("Введите мб: "))
                     print("Результат:", per1 / 1024**2)
-
 
                 # гб
                 elif ipt == "гб - байты":
                     per1 = int(input("Введите гб: "))
                     print("Результат:", per1 * 1024**3)
-
                 elif ipt == "гб - кб":
                     per1 = int(input("Введите гб: "))
                     print("Результат:", per1 * 1024**2) 
-
                 elif ipt == "гб - мб":
                     per1 = int(input("Введите гб: "))
                     print("Результат:", per1 * 1024)
-
                 elif ipt == "гб - тб":
                     per1 = int(input("Введите гб: "))
                     print("Результат:", per1 / 1024)
-
 
                 # тб
                 elif ipt == "тб - байты":
                     per1 = int(input("Введите тб: "))
                     print("Результат:", per1 * 1024**4)
-
                 elif ipt == "тб - кб":
                     per1 = int(input("Введите тб: "))
                     print("Результат:", per1 * 1024**3)
-
                 elif ipt == "тб - мб":
                     per1 = int(input("Введите тб: ")) 
                     print("Результат:", per1 * 1024**2)
-
                 elif ipt == "тб - гб":
                     per1 = int(input("Введите тб: "))
                     print("Результат:", per1 * 1024)
@@ -220,8 +276,9 @@ def paintgpt():#полностью я
             cur1 = randint(10, 200)
             ran1 = randint(1,10)
             # рандомные координаты
+            screensize(500, 500)
             penup()
-            goto(randint(-250, 250), randint(-250, 250))
+            goto(randint(-500, 500), randint(-500, 500))
             pendown()
             if ran1 == 2:
                 # звезда
@@ -332,8 +389,6 @@ def igraUgadaika():#я
     count1 = 1
     print("Угадайте число от 1 до 100! (Введите 0 если хотите сдаться)")
     count = randint(1,100)
-    if randint(1,100) == 3:
-        count = randint(5,20)**40
     price = int(input("Введите число: "))
     while price != count:
         count1 += 1
@@ -342,8 +397,6 @@ def igraUgadaika():#я
             break
         elif price >= 101:
             print("Сказали же, ДО 100 xD")
-        elif count1 > 100:
-            print("Вам с шансем 1% выпало число больше 100! Число", count)
         elif price > count and price != 0:
             print("Число меньше!")
         elif price < count :
@@ -381,11 +434,9 @@ def timer():#инет\нейросеть
             minutes = int(remaining / 60) % 60
             seconds = int(remaining) % 60
             milliseconds = int(remaining * 1000) % 1000
-            
             print(f"\r{hours:02}:{minutes:02}:{seconds:02}:{milliseconds:03}", end="")
             print("\r", end="")
             sleep(0.01)
-                    
         print("\r\nВремя вышло!")
     except ValueError:
         print("Неправильное значение!")
