@@ -1,51 +1,121 @@
-current_version = "4.1.1 lite"
-version_date = "08.08.24"
-from random import *
-from time import *
-from os import system
-from os import name
+current_version = "4.1.2 lite"
+version_date = "14.08.24"
+from random import randint
+from time import time, sleep, perf_counter
+from os import system, name
 import base64
 
 def info():#я
-    print(f"\nПрограмма MultiPy lite.\nВерсия {current_version} от {version_date}.\nТелеграм-канал программы - multipy_prog\nТелеграмм разработчика - m1cro_cat\n")
+    print(f"\nПрограмма MultiPy lite.\nВерсия {current_version} от {version_date}.\nТелеграмм разработчика - m1cro_cat\n")
 
 def changelog():#я
     print(" Changelog")
     print(f">>{current_version} - {version_date}<<")
-    print(">Багфикс\n>Улучшение функции linux\n")
-
+    print(">Багфикс\nЗначительная переделка функции линукс команд>")
 
 def linux():
-    q = int(input("Линукс команды\n1 - Своя команда\n2 - neofetch\n3 - uname -a\n4 - sudo apt update\n5 - sudo apt upgrade -y\n6 - sudo apt autoremove\n7 - update & upgrade -y\n0 - Выход \n\nВведите значение: "))
+    q = int(input("Линукс команды\n1 - Установка софта через apt\n2 - apt\n3 - Системные команды\n0 - Выход\n\nВведите значение: "))
     print("\n")
-    while q != "0":
-        if q == 2:
-            print(system("neofetch "))
+    while q != 0:
+        if q == 1:
+                q = int(input("Установка разного софта\n*(может не работать на некоторых дистрибутивах)\n1 - Ввести свой пакет\n2 - firefox\n3 - vlc\n4 - obs-studio\n5 - gimp\n6 - vscode\n7 - telegram-desktop*\n8 - Thunderbird\n9 - steam*\n0 - Выход \n\nВведите значение: "))
+                print("\n")
+                while q != 0:
+                    if q == 3:
+                        print(system("""
+                                        sudo install -d -m 0755 /etc/apt/keyrings && wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null && echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null && echo '
+                                        Package: *
+                                        Pin: origin packages.mozilla.org
+                                        Pin-Priority: 1000
+                                        ' | sudo tee /etc/apt/preferences.d/mozilla  && sudo apt-get update && sudo apt-get install firefox
+                                        """))
+                        print("\n")
+                    elif q == 4:
+                        print(system("sudo apt install vlc"))
+                        print("\n")
+                    elif q == 5:
+                        print(system("sudo apt install obs-studio"))
+                        print("\n")
+                    elif q == 6:
+                        print(system("sudo apt install gimp"))
+                        print("\n")
+                    elif q == 6:
+                        print(system(""""
+                                        sudo apt-get install wget gpg
+                                        wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+                                        sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+                                        echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
+                                        rm -f packages.microsoft.gpg
+                                        sudo apt update && sudo apt install code
+                                        """))
+                        print("\n")
+                    
+                    elif q == 7:
+                        print(system("sudo apt install telegram-desktop"))
+                        print("\n")
+                    elif q == 8:
+                        print(system("sudo apt install thunderbird"))
+                        print("\n")
+                    elif q == 9:
+                        print(system("sudo apt install steam"))
+                        print("\n")
+                    elif q == 1:
+                        c = input("Введите пакет для установки: ")
+                        print(system(f"sudo apt install {c}"))
+                        print("\n")
+                    else:
+                        print("Введите корректное значение")
+                        print("\n")
+                q = int(input("Установка разного софта\n*(может не работать на некоторых дистрибутивах)\n1 - Ввести свой пакет\n2 - firefox\n3 - vlc\n4 - obs-studio\n5 - gimp\n6 - vscode\n7 - telegram-desktop*\n8 - Thunderbird\n9 - steam*\n0 - Выход \n\nВведите значение: "))
+                print("\n")
+        elif q == 2:
+            q = int(input("apt команды\n1 - Своя команда\n2 - sudo apt update\n3 - sudo apt upgrade -y\n4 - sudo apt autoremove\n5 - update & upgrade -y\n0 - Выход \n\nВведите значение: "))
             print("\n")
+            while q != 0:
+                if q == 2:
+                    print(system("sudo apt update"))
+                    print("\n")
+                elif q == 3:
+                    print(system("sudo apt upgrade -y"))
+                    print("\n")
+                elif q == 4:
+                    print(system("sudo apt autoremove"))
+                    print("\n")
+                elif q == 5:
+                    print(system("sudo apt update && sudo apt upgrade -y"))
+                    print("\n")
+                elif q == 1:
+                    c = input("Введите команду: ")
+                    print(system(c))
+                    print("\n")
+                else:
+                    print("Введите корректное значение")
+                    print("\n")
+                q = int(input("apt команды\n1 - Своя команда\n2 - sudo apt update\n3 - sudo apt upgrade -y\n4 - sudo apt autoremove\n5 - update & upgrade -y\n0 - Выход \n\nВведите значение: "))
+                print("\n")
         elif q == 3:
-            print(system("uname -a"))
+            q = int(input("Системные команды\n1 - Своя команда\n2 - neofetch\n3 - uname -a\n0 - Выход \n\nВведите значение: "))
             print("\n")
-        elif q == 4:
-            print(system("sudo apt update"))
-            print("\n")
-        elif q == 5:
-            print(system("sudo apt upgrade -y"))
-            print("\n")
-        elif q == 6:
-            print(system("sudo apt autoremove"))
-            print("\n")
-        elif q == 7:
-            print(system("sudo apt update && sudo apt upgrade -y"))
-            print("\n")
-        elif q == 1:
-            c = input("Введите команду: ")
-            print(system(c))
-        elif q == 0:
-            break
+            while q != 0:
+                if q == 2:
+                    print(system("neofetch "))
+                    print("\n")
+                elif q == 3:
+                    print(system("uname -a"))
+                    print("\n")
+                elif q == 1:
+                    c = input("Введите команду: ")
+                    print(system(c))
+                    print("\n")
+                else:
+                    print("Введите корректное значение")
+                    print("\n")
+                q = int(input("Системные команды\n1 - Своя команда\n2 - neofetch\n3 - uname -a\n0 - Выход \n\nВведите значение: "))
+                print("\n")
         else:
             print("Введите корректное значение")
             print("\n")
-        q = int(input("Линукс команды\n1 - Своя команда\n2 - neofetch\n3 - uname -a\n4 - sudo apt update\n5 - sudo apt upgrade -y\n6 - sudo apt autoremove\n7 - update & upgrade -y\n0 - Выход \n\nВведите значение: "))
+        q = int(input("Линукс команды\n1 - Установка софта через apt\n2 - apt\n3 - Системные команды\n0 - Выход\n\nВведите значение: "))
         print("\n")
 
 def igraUgadaika():#я
@@ -87,7 +157,6 @@ def stopwatch():#инет\нейросеть
             seconds = str(int(elapsed) % 60).zfill(2)
             milliseconds = str(int(elapsed * 1000) % 1000).zfill(3)
             print("\r{0}:{1}:{2}:{3}".format(hours, minutes, seconds, milliseconds), end="")
-
     except KeyboardInterrupt:
         print("\nСекундомер остановлен!")
 
@@ -101,11 +170,9 @@ def timer():#инет\нейросеть
             minutes = int(remaining / 60) % 60
             seconds = int(remaining) % 60
             milliseconds = int(remaining * 1000) % 1000
-            
             print(f"\r{hours:02}:{minutes:02}:{seconds:02}:{milliseconds:03}", end="")
             print("\r", end="")
             sleep(0.01)
-                    
         print("\r\nВремя вышло!")
     except ValueError:
         print("Неправильное значение!")
