@@ -9,7 +9,7 @@ print(f"""
 prnt_unix = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Changelog\n 5 - Linux\n \n 0 - Выход"
 prnt_other = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Changelog\n 0 - Выход"
 clear_command = ""
-if os.name == "posix":
+if name == "posix":
     prnt = prnt_unix
     clear_command = "clear"
 else:
@@ -19,7 +19,7 @@ print(prnt)
 ipt = int(input("\nВыберите действие: "))
 while ipt != 0:
     if ipt == 1:
-        print(" 1 - Секундомер\n 2 - Таймер\n 3 - Генератор\n 4 - Base64\n 5 - Узнать длинну строки\n 6 - Ping\n 7 - Конвертор единиц (beta)\n 0 - Назад")
+        print(" 1 - Секундомер\n 2 - Таймер\n 3 - Генератор\n 4 - Base64\n 5 - Узнать длинну строки\n 6 - Ping\n 7 - Конвертор единиц (beta)\n 8 - Перевод строки наоборот\n 0 - Назад")
         ipt = int(input("\nВыберите действие: "))
         while ipt != 0:
             if ipt == 1:
@@ -36,11 +36,13 @@ while ipt != 0:
                 ping()
             elif ipt == 7:
                 convertor()
+            elif ipt == 8:
+                nazad()
             elif ipt == 0:
                 break
             else:
                 print("Введите корректное значение")
-            print(" 1 - Секундомер\n 2 - Таймер\n 3 - Генератор\n 4 - Base64\n 5 - Узнать длинну строки\n 6 - Ping\n 7 - Конвертор единиц (beta)\n 0 - Назад")
+            print(" 1 - Секундомер\n 2 - Таймер\n 3 - Генератор\n 4 - Base64\n 5 - Узнать длинну строки\n 6 - Ping\n 7 - Конвертор единиц (beta)\n 8 - Перевод строки наоборот\n 0 - Назад")
             ipt = int(input("\nВыберите действие: "))
     elif ipt == 2:
         print(" 1 - PrintGPT\n 2 - Игра Камень-Ножницы-Бумага\n 3 - Игра Угадай число\n 4 - Игра Ползущие Черепашки\n 0 - Назад")

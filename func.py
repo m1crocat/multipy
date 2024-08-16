@@ -1,10 +1,10 @@
 current_version = "4.1.2"
-version_date = "14.08.24"
-from random import *
-from time import *
+version_date = "16.08.24"
+from random import randint
+from time import sleep, time, perf_counter
 from turtle import *
-import os
-import base64
+from os import name, system
+from base64 import b64decode, b64encode
 
 def info():#я
     print(f"\nПрограмма MultiPy.\nВерсия {current_version} от {version_date}.\nТелеграмм разработчика - m1cro_cat\n")
@@ -12,7 +12,7 @@ def info():#я
 def changelog():#я
     print(" Changelog")
     print(f">>{current_version} - {version_date}<<")
-    print(">Багфикс\nЗначительная переделка функции линукс команд>")
+    print(">Багфикс\nЗначительная переделка функции линукс команд\nНовая функция\nОптимизация (меньше ест памяти в фоне)>")
 
 def linux():
     q = int(input("Линукс команды\n1 - Установка софта через apt\n2 - apt\n3 - Системные команды\n0 - Выход\n\nВведите значение: "))
@@ -23,7 +23,7 @@ def linux():
                 print("\n")
                 while q != 0:
                     if q == 3:
-                        print(os.system("""
+                        print(system("""
                                         sudo install -d -m 0755 /etc/apt/keyrings && wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null && echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null && echo '
                                         Package: *
                                         Pin: origin packages.mozilla.org
@@ -32,16 +32,16 @@ def linux():
                                         """))
                         print("\n")
                     elif q == 4:
-                        print(os.system("sudo apt install vlc"))
+                        print(system("sudo apt install vlc"))
                         print("\n")
                     elif q == 5:
-                        print(os.system("sudo apt install obs-studio"))
+                        print(system("sudo apt install obs-studio"))
                         print("\n")
                     elif q == 6:
-                        print(os.system("sudo apt install gimp"))
+                        print(system("sudo apt install gimp"))
                         print("\n")
                     elif q == 6:
-                        print(os.system(""""
+                        print(system(""""
                                         sudo apt-get install wget gpg
                                         wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
                                         sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
@@ -52,17 +52,17 @@ def linux():
                         print("\n")
                     
                     elif q == 7:
-                        print(os.system("sudo apt install telegram-desktop"))
+                        print(system("sudo apt install telegram-desktop"))
                         print("\n")
                     elif q == 8:
-                        print(os.system("sudo apt install thunderbird"))
+                        print(system("sudo apt install thunderbird"))
                         print("\n")
                     elif q == 9:
-                        print(os.system("sudo apt install steam"))
+                        print(system("sudo apt install steam"))
                         print("\n")
                     elif q == 1:
                         c = input("Введите пакет для установки: ")
-                        print(os.system(f"sudo apt install {c}"))
+                        print(system(f"sudo apt install {c}"))
                         print("\n")
                     else:
                         print("Введите корректное значение")
@@ -74,20 +74,20 @@ def linux():
             print("\n")
             while q != 0:
                 if q == 2:
-                    print(os.system("sudo apt update"))
+                    print(system("sudo apt update"))
                     print("\n")
                 elif q == 3:
-                    print(os.system("sudo apt upgrade -y"))
+                    print(system("sudo apt upgrade -y"))
                     print("\n")
                 elif q == 4:
-                    print(os.system("sudo apt autoremove"))
+                    print(system("sudo apt autoremove"))
                     print("\n")
                 elif q == 5:
-                    print(os.system("sudo apt update && sudo apt upgrade -y"))
+                    print(system("sudo apt update && sudo apt upgrade -y"))
                     print("\n")
                 elif q == 1:
                     c = input("Введите команду: ")
-                    print(os.system(c))
+                    print(system(c))
                     print("\n")
                 else:
                     print("Введите корректное значение")
@@ -99,14 +99,14 @@ def linux():
             print("\n")
             while q != 0:
                 if q == 2:
-                    print(os.system("neofetch "))
+                    print(system("neofetch "))
                     print("\n")
                 elif q == 3:
-                    print(os.system("uname -a"))
+                    print(system("uname -a"))
                     print("\n")
                 elif q == 1:
                     c = input("Введите команду: ")
-                    print(os.system(c))
+                    print(system(c))
                     print("\n")
                 else:
                     print("Введите корректное значение")
@@ -186,7 +186,6 @@ def convertor():#я
                 elif ipt == "км - метры":
                     per1 = int(input("Введите км: "))
                     print("Результат:", per1 * 10)
-
                 # байты
                 if ipt == "байты - кб":
                     per1 = int(input("Введите байты: ")) 
@@ -200,7 +199,6 @@ def convertor():#я
                 elif ipt == "байты - тб":
                     per1 = int(input("Введите байты: "))
                     print("Результат:", per1 / 1024**4)
-
                 # кб
                 elif ipt == "кб - байты":
                     per1 = int(input("Введите кб: "))
@@ -214,8 +212,6 @@ def convertor():#я
                 elif ipt == "кб - тб":
                     per1 = int(input("Введите кб: "))
                     print("Результат:", per1 / 1024**3)
-
-
                 # мб  
                 elif ipt == "мб - байты":
                     per1 = int(input("Введите мб: "))
@@ -229,7 +225,6 @@ def convertor():#я
                 elif ipt == "мб - тб":
                     per1 = int(input("Введите мб: "))
                     print("Результат:", per1 / 1024**2)
-
                 # гб
                 elif ipt == "гб - байты":
                     per1 = int(input("Введите гб: "))
@@ -243,7 +238,6 @@ def convertor():#я
                 elif ipt == "гб - тб":
                     per1 = int(input("Введите гб: "))
                     print("Результат:", per1 / 1024)
-
                 # тб
                 elif ipt == "тб - байты":
                     per1 = int(input("Введите тб: "))
@@ -479,13 +473,13 @@ def base64fun():#интернет
     q = int(input("1 - зашифровать, 2 - расшифровать: "))
     if q == 2:
         encoded_string = input("Введите строку для расшифрования: ")
-        decoded_bytes = base64.b64decode(encoded_string)
+        decoded_bytes = b64decode(encoded_string)
         decoded_string = decoded_bytes.decode("utf-8")
         print(decoded_string)
     if q == 1:
         q = input("Введите строку для шифрования: ")
         b = q.encode("UTF-8")
-        e = base64.b64encode(b)
+        e = b64encode(b)
         s1 = e.decode("UTF-8")
         print(s1)
 
@@ -495,7 +489,7 @@ def length():#я
 
 def ping():#я
     i1 = input("Введите ip, или доменное имя для пинга (или укажите параметр -t на windows, если надо пинговать бесконечно): ")
-    print(os.system(f"ping {i1}"))
+    print(system(f"ping {i1}"))
 
 def knb():#я
     response = int(input("Камень(1), ножницы(2), или бумага?(3) (0 - выход): "))
@@ -622,3 +616,13 @@ def game_sherepash():
     t1.hideturtle()
     t2.hideturtle()
     t3.hideturtle()
+def nazad():
+    done = ""
+    a = -1
+    print("Перевод строки в обратную сторону")
+    inp = input("Введите строку: ")
+    for q in inp:
+        done += inp[a]
+        a -= 1
+    print("Ваша строка:",done)
+
