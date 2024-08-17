@@ -1,19 +1,32 @@
-current_version = "4.1.2"
-version_date = "16.08.24"
+current_version = "4.1.4"
+version_date = "17.08.24"
 from random import randint
 from time import sleep, time, perf_counter
 from turtle import *
 from os import name, system
 from base64 import b64decode, b64encode
 
+def decor(func):
+    def wrapper():
+        print("")
+        try:
+            func()
+        except KeyboardInterrupt:
+            print("\nЗакрыто\n")
+        except ValueError:
+            print("Неправильное значение!")
+        else:
+            print("")
+    return wrapper
+@decor
 def info():#я
     print(f"\nПрограмма MultiPy.\nВерсия {current_version} от {version_date}.\nТелеграмм разработчика - m1cro_cat\n")
-
+@decor
 def changelog():#я
     print(" Changelog")
     print(f">>{current_version} - {version_date}<<")
-    print(">Багфикс\nЗначительная переделка функции линукс команд\nНовая функция\nОптимизация (меньше ест памяти в фоне)>")
-
+    print(">Багфикс x3\n Добавлен декоратор<")
+@decor
 def linux():
     q = int(input("Линукс команды\n1 - Установка софта через apt\n2 - apt\n3 - Системные команды\n0 - Выход\n\nВведите значение: "))
     print("\n")
@@ -31,15 +44,19 @@ def linux():
                                         ' | sudo tee /etc/apt/preferences.d/mozilla  && sudo apt-get update && sudo apt-get install firefox
                                         """))
                         print("\n")
+                        break
                     elif q == 4:
                         print(system("sudo apt install vlc"))
                         print("\n")
+                        break
                     elif q == 5:
                         print(system("sudo apt install obs-studio"))
                         print("\n")
+                        break
                     elif q == 6:
                         print(system("sudo apt install gimp"))
                         print("\n")
+                        break
                     elif q == 6:
                         print(system(""""
                                         sudo apt-get install wget gpg
@@ -50,20 +67,24 @@ def linux():
                                         sudo apt update && sudo apt install code
                                         """))
                         print("\n")
-                    
+                        break
                     elif q == 7:
                         print(system("sudo apt install telegram-desktop"))
                         print("\n")
+                        break
                     elif q == 8:
                         print(system("sudo apt install thunderbird"))
                         print("\n")
+                        break
                     elif q == 9:
                         print(system("sudo apt install steam"))
                         print("\n")
+                        break
                     elif q == 1:
                         c = input("Введите пакет для установки: ")
                         print(system(f"sudo apt install {c}"))
                         print("\n")
+                        break
                     else:
                         print("Введите корректное значение")
                         print("\n")
@@ -118,6 +139,7 @@ def linux():
             print("\n")
         q = int(input("Линукс команды\n1 - Установка софта через apt\n2 - apt\n3 - Системные команды\n0 - Выход\n\nВведите значение: "))
         print("\n")
+@decor
 def convertor():#я
             ipt = input("Введите из чего в что вы хотите перевести \nДоступно: от мм до км, от байтов до тб\nНапример: байты - тб, метры - см\n(введите 0 для выхода): ").lower()
             while ipt != "0":
@@ -251,7 +273,7 @@ def convertor():#я
                 elif ipt == "тб - гб":
                     per1 = int(input("Введите тб: "))
                     print("Результат:", per1 * 1024)
-
+@decor
 def paintgpt():#полностью я
     try:
         spd = int(input("Введите скорость: "))
@@ -378,7 +400,7 @@ def paintgpt():#полностью я
             paint()
     except Exception:
                 print("PaintGPT закрыт")
-
+@decor
 def igraUgadaika():#я
     count1 = 1
     print("Угадайте число от 1 до 100! (Введите 0 если хотите сдаться)")
@@ -401,7 +423,7 @@ def igraUgadaika():#я
     if price == count:
         print("Вы угадали!")
         print("Количество попыток:", count1)
-
+@decor
 def stopwatch():#инет\нейросеть
     print("Нажмите Enter чтобы начать, Ctrl+C чтобы остановить")
     try:
@@ -417,7 +439,7 @@ def stopwatch():#инет\нейросеть
 
     except KeyboardInterrupt:
         print("\nСекундомер остановлен!")
-
+@decor
 def timer():#инет\нейросеть
     try:
         my_time = int(input("Таймер обратного отсчета. Введите секунды: "))
@@ -434,7 +456,7 @@ def timer():#инет\нейросеть
         print("\r\nВремя вышло!")
     except ValueError:
         print("Неправильное значение!")
-
+@decor
 def gen(): #частично я частично инет
     per1 = int(input("1 - генератор букв, 2 - генератор цифр, 3 - генератор пароля(буквы + цифры): "))
     if per1 == 1:
@@ -468,7 +490,7 @@ def gen(): #частично я частично инет
         for i in range(passLength):
             password += alph[randint(0, 81)]
         print(password)
-
+@decor
 def base64fun():#интернет
     q = int(input("1 - зашифровать, 2 - расшифровать: "))
     if q == 2:
@@ -482,15 +504,15 @@ def base64fun():#интернет
         e = b64encode(b)
         s1 = e.decode("UTF-8")
         print(s1)
-
+@decor
 def length():#я
     per3 = input("Введите строку: ")
     print("Длина строки:", len(per3))
-
+@decor
 def ping():#я
     i1 = input("Введите ip, или доменное имя для пинга (или укажите параметр -t на windows, если надо пинговать бесконечно): ")
     print(system(f"ping {i1}"))
-
+@decor
 def knb():#я
     response = int(input("Камень(1), ножницы(2), или бумага?(3) (0 - выход): "))
     point_user = 0
@@ -529,7 +551,7 @@ def knb():#я
         if point_user >= 3:
                 print("Ты победил!")
                 break
-
+@decor
 def game_sherepash():
     def prnt(t):
         t.speed(30)
@@ -616,6 +638,7 @@ def game_sherepash():
     t1.hideturtle()
     t2.hideturtle()
     t3.hideturtle()
+@decor
 def nazad():
     done = ""
     a = -1
@@ -625,4 +648,3 @@ def nazad():
         done += inp[a]
         a -= 1
     print("Ваша строка:",done)
-
