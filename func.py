@@ -1,46 +1,49 @@
-current_version = "4.2 beta 1"
-version_date = "18.08.24"
+current_version = "4.2 pre 1"
+version_date = "20.08.24"
+slogan = "\n На четыре уровня выше"
 from random import randint
 from time import sleep, time, perf_counter
-from turtle import *
-from os import name, system, path, getcwd
+from turtle import forward, left, end_fill, begin_fill, color, colormode, speed, pensize, goto, penup, pendown, circle, screensize, Turtle
+from os import name, system, path
+from sys import executable, argv, exit
 from base64 import b64decode, b64encode
-import json
+from json import dump, load
+from subprocess import call
 #функции первой необходимости
-def decor(func):
+if __name__ == "__main__":
+    print("Вы запустили не тот файл, нужно запускать multi.py. Выход..")
+    sleep(1)
+def d(func):
     def wrapper():
-        print("")
-        if config.get("show_errors") == False:
+        if not config.get("show_errors"):
                 try:
-                    clr(clear_command)
+                    c(clear_command)
                     func()
                 except KeyboardInterrupt:
                     print("\nЗакрыто\n")
                 except ValueError:
-                    print("Неправильное значение!")
+                    print("Неправильное значение.")
                 except FileNotFoundError:
-                    print("Файл не найден.")
-                except json.JSONDecodeError:
-                    print("Файл содержит некорректный JSON.")
+                    print("Файл не найден. Переустановите программу.")
                 except Exception as e:
-                    print(f"Произошла ошибка: {e}")
+                    print(f"Произошла ошибка: {e}. Обратитесь к разработчику.")
                 else:
-                    print("")
+                    c()
         if config.get("show_errors"):
-                clr()
+                c()
                 func()
-                print("")
+                c()
     return wrapper
 
 current_dir = path.dirname(path.abspath(__file__))
 file_path = path.join(current_dir, "config.json")
 def open_config():
     with open(file_path, 'r') as file:
-        return json.load(file)
+        return load(file)
 config = open_config()
 def save_config(c):
     with open(file_path, 'w') as file:
-        json.dump(c, file, indent=4)
+        dump(c, file, indent=4)
 
 prnt_unix = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Список изменений\n 5 - Linux\n 6 - Настройки\n\n 0 - Выход"
 prnt_other = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Cписок изменений\n 5 - Настройки\n\n 0 - Выход"
@@ -53,48 +56,90 @@ else:
     prnt = prnt_other
     clear_command = "clr"
 
-def clr(q = clear_command):
-    print(system(q))
-
+def c(q = clear_command):
+    if name == "posix":
+        system(f"{q} 2>/dev/null")
+    else:
+        system(f"{q} 2>nul")
 #функции
-@decor
+@d
 def info():#я
-    print(f"\nПрограмма MultiPy.\nВерсия {current_version} от {version_date}.\nТелеграмм разработчика - m1cro_cat\n")
-@decor
+    input(f"\nПрограмма MultiPy.\nВерсия {current_version} от {version_date}.\nТелеграмм разработчика - m1cro_cat\n\nНажмите Enter чтобы продолжить. ")
+@d
 def changelog():#я
     print(" Changelog")
     print(f">>{current_version} - {version_date}<<")
-    print(">Багфикс\nНастройки<.")
-@decor
+    print(">>Багфикс\n Подсказки\n Оптимизация\n Куууча изменений в коде<<.")
+    input("\n\nНажмите Enter чтобы продолжить. ")
+@d
+def restoreDefaultSettings():
+    config = open_config()
+    config["tips"] = False
+    config["show_errors"] = False
+    save_config(config)
+@d
+def reboot():
+    call([executable] + argv)
+    exit()
+@d
 def settings():
     config = open_config()
-    i = int(input(f"Настройки\nВведите цифру чтобы изменить значение на противоположное\n1 - Отображение ошибок - {config.get("show_errors")}\n0 - Выход\nВведите цифру: "))
+    i = int(input(f"Настройки{'\nВведите цифру чтобы изменить значение на противоположное' if config.get('tips') else ''}\n1 - Отображение ошибок - {config.get("show_errors")}\n2 - Подсказки - {config.get("tips")}\n3 - Сброс настроек\n0 - Выход\nВведите значение: "))
     if i == 1:
         if config.get("show_errors"):
             config["show_errors"] = False
             save_config(config)
-            print(f"Готово! Отображение ошибок: {config.get("show_errors")}")
+            reboot()
         else:
             config["show_errors"] = True
             save_config(config)
-            print(f"Готово! Отображение ошибок: {config.get("show_errors")}")
-@decor
-def linux():
-    q = int(input("Линукс команды\n1 - Установка софта через apt\n2 - apt\n3 - Системные команды\n0 - Выход\n\nВведите значение: "))
-    print("\n")
-    while q != 0:
-        if q == 1:
-                q = int(input("Установка разного софта\n*(может не работать на некоторых дистрибутивах)\n1 - Ввести свой пакет\n2 - firefox\n3 - vlc\n4 - obs-studio\n5 - gimp\n6 - vscode\n7 - telegram-desktop*\n8 - Thunderbird\n9 - steam*\n0 - Выход \n\nВведите значение: "))
+            reboot()
+    elif i == 2:
+        if config.get("tips"):
+            config["tips"] = False
+            save_config(config)
+            reboot()
+        else:
+            config["tips"] = True
+            save_config(config)
+            reboot()
+    elif i == 3:
+        c()
+        q = input("Вы ТОЧНО хотите сбросить все настройки на заводские (все выключено)?\nВведите y если хотите, n или 0 если нет, и s если хотите начать первоначальную настроку.\nПути назад уже не будет!\nВведите значение: ")
+        if q == "y":
+            restoreDefaultSettings()
+            reboot()
+        elif q == "s":
+            setup()
+@d
+def setup():
+    restoreDefaultSettings()
+    q = input("Добро пожаловать в MultiPy)\nДавайте пройдем настроку, чтобы вам было удобнее использовать программу.\nНажмите Enter чтобы продолжить: ")
+    if q == "bypass":
+        config["setup"] = False
+        save_config(config)
+        reboot()
+    c()
+    q = int(input("Подсказки - эта функция поможет вам проще использовать программу.\nПодсказки будут вам говорить подробнее, что делать.\nВведите 1 если хотите включить, или 0 если не нужно: "))
+    if q == 1:
+        config["tips"] = True
+    c()
+    q = int(input("Отладка - эта функция поможет вам лучше узнать, что вызывает ошибку.\nЕсли вы не разбираетесь в python, не рекомендуем ее включать.\nВведите 1 если хотите включить, или 0 если не нужно: "))
+    if q == 1:
+        config["show_errors"] = True
+    c()
+    print("Настройка завершена! Перезапуск...")
+    config["setup"] = False
+    save_config(config)
+    sleep(1)
+    reboot()
+@d
+def linux1():
+                q = int(input(f"Установка разного софта{'\n*(может не работать на некоторых дистрибутивах)' if config.get('tips') else ''}\n1 - Ввести свой пакет\n2 - firefox\n3 - vlc\n4 - obs-studio\n5 - gimp\n6 - vscode\n7 - telegram-desktop*\n8 - Thunderbird\n9 - steam*\n0 - Выход \n\nВведите значение: "))
                 print("\n")
                 while q != 0:
                     if q == 3:
-                        print(system("""
-                                        sudo install -d -m 0755 /etc/apt/keyrings && wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null && echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null && echo '
-                                        Package: *
-                                        Pin: origin packages.mozilla.org
-                                        Pin-Priority: 1000
-                                        ' | sudo tee /etc/apt/preferences.d/mozilla  && sudo apt-get update && sudo apt-get install firefox
-                                        """))
+                        print(system("sudo install -d -m 0755 /etc/apt/keyrings && wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null && echo 'deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main' | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null && echo 'Package: *\nPin: origin packages.mozilla.org\nPin-Priority: 1000' | sudo tee /etc/apt/preferences.d/mozilla > /dev/null && sudo apt-get update && sudo apt-get install -y firefox"))
                         print("\n")
                         break
                     elif q == 4:
@@ -110,14 +155,7 @@ def linux():
                         print("\n")
                         break
                     elif q == 6:
-                        print(system(""""
-                                        sudo apt-get install wget gpg
-                                        wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-                                        sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-                                        echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
-                                        rm -f packages.microsoft.gpg
-                                        sudo apt update && sudo apt install code
-                                        """))
+                        print(system("sudo apt-get install -y wget gpg && wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg && echo 'deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main' | sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null && rm -f packages.microsoft.gpg && sudo apt update && sudo apt install -y code"))
                         print("\n")
                         break
                     elif q == 7:
@@ -140,9 +178,9 @@ def linux():
                     else:
                         print("Введите корректное значение")
                         print("\n")
-                q = int(input("Установка разного софта\n*(может не работать на некоторых дистрибутивах)\n1 - Ввести свой пакет\n2 - firefox\n3 - vlc\n4 - obs-studio\n5 - gimp\n6 - vscode\n7 - telegram-desktop*\n8 - Thunderbird\n9 - steam*\n0 - Выход \n\nВведите значение: "))
-                print("\n")
-        elif q == 2:
+                    q = int(input(f"Установка разного софта{'\n*(может не работать на некоторых дистрибутивах)' if config.get('tips') else ''}\n1 - Ввести свой пакет\n2 - firefox\n3 - vlc\n4 - obs-studio\n5 - gimp\n6 - vscode\n7 - telegram-desktop*\n8 - Thunderbird\n9 - steam*\n0 - Выход \n\nВведите значение: "))             
+@d
+def linux2():
             q = int(input("apt команды\n1 - Своя команда\n2 - sudo apt update\n3 - sudo apt upgrade -y\n4 - sudo apt autoremove\n5 - update & upgrade -y\n0 - Выход \n\nВведите значение: "))
             print("\n")
             while q != 0:
@@ -163,11 +201,11 @@ def linux():
                     print(system(c))
                     print("\n")
                 else:
-                    print("Введите корректное значение")
+                    print("Введите корректное значение.")
                     print("\n")
                 q = int(input("apt команды\n1 - Своя команда\n2 - sudo apt update\n3 - sudo apt upgrade -y\n4 - sudo apt autoremove\n5 - update & upgrade -y\n0 - Выход \n\nВведите значение: "))
-                print("\n")
-        elif q == 3:
+@d
+def linux3():
             q = int(input("Системные команды\n1 - Своя команда\n2 - neofetch\n3 - uname -a\n0 - Выход \n\nВведите значение: "))
             print("\n")
             while q != 0:
@@ -182,16 +220,73 @@ def linux():
                     print(system(c))
                     print("\n")
                 else:
-                    print("Введите корректное значение")
+                    print("Введите корректное значение.")
                     print("\n")
                 q = int(input("Системные команды\n1 - Своя команда\n2 - neofetch\n3 - uname -a\n0 - Выход \n\nВведите значение: "))
-                print("\n")
+                print("\n")   
+@d
+def linux():
+    q = int(input("Линукс команды\n1 - Установка софта через apt\n2 - apt\n3 - Системные команды\n0 - Выход\n\nВведите значение: "))
+    print("\n")
+    while q != 0:
+        if q == 1:
+            linux1()
+        elif q == 2:
+            linux2()
+        elif q == 3:
+            linux3()
         else:
-            print("Введите корректное значение")
+            print("Введите корректное значение.")
             print("\n")
         q = int(input("Линукс команды\n1 - Установка софта через apt\n2 - apt\n3 - Системные команды\n0 - Выход\n\nВведите значение: "))
-        print("\n")
-@decor
+        c()
+@d
+def one():
+    print(" 1 - Секундомер\n 2 - Таймер\n 3 - Генератор\n 4 - Base64\n 5 - Узнать длинну строки\n 6 - Ping\n 7 - Конвертор единиц (beta)\n 8 - Перевод строки наоборот\n 0 - Назад")
+    ipt = int(input("\nВыберите действие: "))
+    while ipt != 0:
+        if ipt == 1:
+            stopwatch()
+        elif ipt == 2:
+            timer()
+        elif ipt == 3:
+            gen()
+        elif ipt == 4:
+            base64fun()
+        elif ipt == 5:
+            length()
+        elif ipt == 6:
+            ping()
+        elif ipt == 7:
+            convertor()
+        elif ipt == 8:
+            nazad()
+        elif ipt == 0:
+            break
+        else:
+            print("Введите корректное значение")
+        print(" 1 - Секундомер\n 2 - Таймер\n 3 - Генератор\n 4 - Base64\n 5 - Узнать длинну строки\n 6 - Ping\n 7 - Конвертор единиц (beta)\n 8 - Перевод строки наоборот\n 0 - Назад")
+        ipt = int(input("\nВыберите действие: "))
+@d
+def two():
+    print(" 1 - PrintGPT\n 2 - Игра Камень-Ножницы-Бумага\n 3 - Игра Угадай число\n 4 - Игра Ползущие Черепашки\n 0 - Назад")
+    ipt = int(input("\nВыберите действие: "))
+    while ipt != 0:
+        if ipt == 1:
+            paintgpt()
+        elif ipt == 2:
+            knb()
+        elif ipt == 3:
+            igraUgadaika()
+        elif ipt == 4:
+            game_sherepash()
+        elif ipt == 0:
+            break
+        else:
+            print("Введите корректное значение")
+        print(" 1 - PrintGPT\n 2 - Игра Камень-Ножницы-Бумага\n 3 - Игра Угадай число\n 4 - Игра Ползущие Черепашки\n 0 - Назад")
+        ipt = int(input("\nВыберите действие: "))
+@d
 def convertor():#я
             ipt = input("Введите из чего в что вы хотите перевести \nДоступно: от мм до км, от байтов до тб\nНапример: байты - тб, метры - см\n(введите 0 для выхода): ").lower()
             while ipt != "0":
@@ -325,13 +420,10 @@ def convertor():#я
                 elif ipt == "тб - гб":
                     per1 = int(input("Введите тб: "))
                     print("Результат:", per1 * 1024)
-                
-                elif ipt == "МИКРОКОТЗЕБЕСТ":
-                    print("Ты открыл пасхалку!\nМя! :3")
-@decor
+@d
 def paintgpt():#полностью я
         spd = int(input("Введите скорость: "))
-        def paint():
+        while True:
             # задаю цвет
             colormode(255)
             color1 = (randint(0, 255), randint(0, 255), randint(0, 255))
@@ -450,9 +542,7 @@ def paintgpt():#полностью я
                 for i in range(25):
                     forward(10)
                     left(25)
-        while True:
-            paint()
-@decor
+@d
 def igraUgadaika():#я
     count1 = 1
     print("Угадайте число от 1 до 100! (Введите 0 если хотите сдаться)")
@@ -475,7 +565,7 @@ def igraUgadaika():#я
     if price == count:
         print("Вы угадали!")
         print("Количество попыток:", count1)
-@decor
+@d
 def stopwatch():#инет\нейросеть
         print("Нажмите Enter чтобы начать, Ctrl+C чтобы остановить")
         input()
@@ -487,9 +577,8 @@ def stopwatch():#инет\нейросеть
             seconds = str(int(elapsed) % 60).zfill(2)
             milliseconds = str(int(elapsed * 1000) % 1000).zfill(3)
             print("\r{0}:{1}:{2}:{3}".format(hours, minutes, seconds, milliseconds), end="")
-@decor
+@d
 def timer():#инет\нейросеть
-    try:
         my_time = int(input("Таймер обратного отсчета. Введите секунды: "))
         end = time() + my_time
         while time() < end:
@@ -502,12 +591,11 @@ def timer():#инет\нейросеть
             print("\r", end="")
             sleep(0.01)
         print("\r\nВремя вышло!")
-    except ValueError:
-        print("Неправильное значение!")
-@decor
-def gen(): #частично я частично инет
+@d
+def gen(): #я
     per1 = int(input("1 - генератор букв, 2 - генератор цифр, 3 - генератор пароля(буквы + цифры): "))
     if per1 == 1:
+        c()
         per2 = ""
         passLength = int(input("Введите длину: "))
         # alph - это алфавит
@@ -526,41 +614,45 @@ def gen(): #частично я частично инет
             per2 += alph[randint(0, (len(alph) - 1))]
         print(per2)
     if per1 == 2:
+        c()
         passLength = int(input("Введите длину: "))
         per1 = ""
         for i in range(passLength):
             per1 += str(randint(0,9))
         print(per1)
     if per1 == 3:
+        c()
         password = ""
         passLength = int(input("Введите длину: "))
         alph = 'ABCDEFGHIJKLANOPQRSTUVWXYZabcdefghijklanopqrstuvwxyz123456789~!@#$%^&*()-_+=|/:;"<,>.?/' #thks to rodion
         for i in range(passLength):
             password += alph[randint(0, 81)]
         print(password)
-@decor
+@d
 def base64fun():#интернет
     q = int(input("1 - зашифровать, 2 - расшифровать: "))
     if q == 2:
+        c()
         encoded_string = input("Введите строку для расшифрования: ")
         decoded_bytes = b64decode(encoded_string)
         decoded_string = decoded_bytes.decode("utf-8")
         print(decoded_string)
     if q == 1:
+        c()
         q = input("Введите строку для шифрования: ")
         b = q.encode("UTF-8")
         e = b64encode(b)
         s1 = e.decode("UTF-8")
         print(s1)
-@decor
+@d
 def length():#я
     per3 = input("Введите строку: ")
     print("Длина строки:", len(per3))
-@decor
+@d
 def ping():#я
-    i1 = input("Введите ip, или доменное имя для пинга (или укажите параметр -t на windows, если надо пинговать бесконечно): ")
+    i1 = input(f"Введите IP, или доменное имя для пинга {'\n(или укажите параметр -t на windows, если надо пинговать бесконечно)' if clear_command == "c" else ''}: ")
     print(system(f"ping {i1}"))
-@decor
+@d
 def knb():#я
     response = int(input("Камень(1), ножницы(2), или бумага?(3) (0 - выход): "))
     point_user = 0
@@ -599,7 +691,7 @@ def knb():#я
         if point_user >= 3:
                 print("Ты победил!")
                 break
-@decor
+@d
 def game_sherepash():
     def prnt(t):
         t.speed(30)
@@ -686,7 +778,7 @@ def game_sherepash():
     t1.hideturtle()
     t2.hideturtle()
     t3.hideturtle()
-@decor
+@d
 def nazad():
     done = ""
     a = -1
