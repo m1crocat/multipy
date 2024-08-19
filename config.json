@@ -1,1 +1,3 @@
-{"updates_enabled": true, "update_branch": "main"}
+{
+    "show_errors": false
+}
