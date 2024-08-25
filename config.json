@@ -1,5 +1,5 @@
 {
-    "show_errors": false,
+    "setup": false,
     "tips": false,
-    "setup": false
+    "show_errors": false
 }
