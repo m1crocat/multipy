@@ -9,9 +9,9 @@ from json import dump, load
 from subprocess import call
 import turtle
 #стабильные переменные
-current_version = "4.2 remake 1"
-version_date = "25.08.24"
-slogan = "\n На четыре уровня выше"
+current_version = "4.2.1 beta"
+version_date = "11.09.24"
+slogan = "\n да"
 prnt_unix = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Список изменений\n 5 - Linux\n 6 - Настройки\n\n 0 - Выход"
 prnt_other = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Cписок изменений\n 5 - Настройки\n\n 0 - Выход"
 defaultConfig = {"setup": False, "tips": False, "show_errors": False}
@@ -207,7 +207,7 @@ def debug():
 def changelog():#я
     print(" Changelog")
     print(f">>{current_version} - {version_date}<<")
-    print(">>Багфикс\n Подсказки\n Оптимизация\n Куууча изменений в коде<<.")
+    print(">>Обновленный интерфейс\nНовые настройки\nНовое все<<.")
     input("\n\nНажмите Enter чтобы продолжить. ") 
 @d
 def info():#я
@@ -216,7 +216,7 @@ def info():#я
 #one
 @d
 def one():
-    print(" 1 - Секундомер\n 2 - Таймер\n 3 - Генератор\n 4 - Base64\n 5 - Узнать длинну строки\n 6 - Ping\n 7 - Конвертор единиц (beta)\n 8 - Перевод строки наоборот\n 0 - Назад")
+    print(" 1 - Секундомер\n 2 - Таймер\n 3 - Генератор\n 4 - Base64\n 5 - Узнать длинну строки\n 6 - Ping\n 7 - Перевод строки наоборот\n 8 - To-Do лист \n 0 - Назад")
     ipt = int(input("\nВыберите действие: "))
     while ipt != 0:
         if ipt == 1:
@@ -233,11 +233,13 @@ def one():
             ping()
         elif ipt == 7:
             nazad()
+        elif ipt == 8:
+            todo()
         elif ipt == 0:
             break
         else:
             print("Введите корректное значение")
-        print(" 1 - Секундомер\n 2 - Таймер\n 3 - Генератор\n 4 - Base64\n 5 - Узнать длинну строки\n 6 - Ping\n 7 - Конвертор единиц (beta)\n 8 - Перевод строки наоборот\n 0 - Назад")
+        print(" 1 - Секундомер\n 2 - Таймер\n 3 - Генератор\n 4 - Base64\n 5 - Узнать длинну строки\n 6 - Ping\n 7 - Перевод строки наоборот\n 8 - To-Do лист \n 0 - Назад")
         ipt = int(input("\nВыберите действие: "))
 @d
 def stopwatch():#инет\нейросеть
@@ -648,50 +650,50 @@ def paintgpt():
 #linux
 @d
 def linux1():
-                q = int(input(f"Установка разного софта{'\n*(может не работать на некоторых дистрибутивах)' if config.get('tips') else ''}\n1 - Ввести свой пакет\n2 - firefox\n3 - vlc\n4 - obs-studio\n5 - gimp\n6 - vscode\n7 - telegram-desktop*\n8 - Thunderbird\n9 - steam*\n0 - Выход \n\nВведите значение: "))
-                print("\n")
-                while q != 0:
-                    if q == 3:
-                        print(system("sudo install -d -m 0755 /etc/apt/keyrings && wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null && echo 'deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main' | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null && echo 'Package: *\nPin: origin packages.mozilla.org\nPin-Priority: 1000' | sudo tee /etc/apt/preferences.d/mozilla > /dev/null && sudo apt-get update && sudo apt-get install -y firefox"))
-                        print("\n")
-                        break
-                    elif q == 4:
-                        print(system("sudo apt install vlc"))
-                        print("\n")
-                        break
-                    elif q == 5:
-                        print(system("sudo apt install obs-studio"))
-                        print("\n")
-                        break
-                    elif q == 6:
-                        print(system("sudo apt install gimp"))
-                        print("\n")
-                        break
-                    elif q == 6:
-                        print(system("sudo apt-get install -y wget gpg && wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg && echo 'deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main' | sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null && rm -f packages.microsoft.gpg && sudo apt update && sudo apt install -y code"))
-                        print("\n")
-                        break
-                    elif q == 7:
-                        print(system("sudo apt install telegram-desktop"))
-                        print("\n")
-                        break
-                    elif q == 8:
-                        print(system("sudo apt install thunderbird"))
-                        print("\n")
-                        break
-                    elif q == 9:
-                        print(system("sudo apt install steam"))
-                        print("\n")
-                        break
-                    elif q == 1:
-                        c = input("Введите пакет для установки: ")
-                        print(system(f"sudo apt install {c}"))
-                        print("\n")
-                        break
-                    else:
-                        print("Введите корректное значение")
-                        print("\n")
-                    q = int(input(f"Установка разного софта{'\n*(может не работать на некоторых дистрибутивах)' if config.get('tips') else ''}\n1 - Ввести свой пакет\n2 - firefox\n3 - vlc\n4 - obs-studio\n5 - gimp\n6 - vscode\n7 - telegram-desktop*\n8 - Thunderbird\n9 - steam*\n0 - Выход \n\nВведите значение: "))             
+    q = int(input(f"Установка разного софта{'\n*(может не работать на некоторых дистрибутивах)' if config.get('tips') else ''}\n1 - Ввести свой пакет\n2 - firefox\n3 - vlc\n4 - obs-studio\n5 - gimp\n6 - vscode\n7 - telegram-desktop*\n8 - Thunderbird\n9 - steam*\n0 - Выход \n\nВведите значение: "))
+    print("\n")
+    while q != 0:
+        if q == 2:
+            print(system("sudo install -d -m 0755 /etc/apt/keyrings && wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null && echo 'deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main' | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null && echo 'Package: *\nPin: origin packages.mozilla.org\nPin-Priority: 1000' | sudo tee /etc/apt/preferences.d/mozilla > /dev/null && sudo apt-get update && sudo apt-get install -y firefox"))
+            print("\n")
+            break
+        elif q == 3:
+            print(system("sudo apt install vlc"))
+            print("\n")
+            break
+        elif q == 4:
+            print(system("sudo apt install obs-studio"))
+            print("\n")
+            break
+        elif q == 5:
+            print(system("sudo apt install gimp"))
+            print("\n")
+            break
+        elif q == 6:
+            print(system("sudo apt-get install -y wget gpg && wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg && echo 'deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main' | sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null && rm -f packages.microsoft.gpg && sudo apt update && sudo apt install -y code"))
+            print("\n")
+            break
+        elif q == 7:
+            print(system("sudo apt install telegram-desktop"))
+            print("\n")
+            break
+        elif q == 8:
+            print(system("sudo apt install thunderbird"))
+            print("\n")
+            break
+        elif q == 9:
+            print(system("sudo apt install steam"))
+            print("\n")
+            break
+        elif q == 1:
+            c = input("Введите пакет для установки: ")
+            print(system(f"sudo apt install {c}"))
+            print("\n")
+            break
+        else:
+            print("Введите корректное значение")
+            print("\n")
+        q = int(input(f"Установка разного софта{'\n*(может не работать на некоторых дистрибутивах)' if config.get('tips') else ''}\n1 - Ввести свой пакет\n2 - firefox\n3 - vlc\n4 - obs-studio\n5 - gimp\n6 - vscode\n7 - telegram-desktop*\n8 - Thunderbird\n9 - steam*\n0 - Выход \n\nВведите значение: "))             
 @d
 def linux2():
             q = int(input("apt команды\n1 - Своя команда\n2 - sudo apt update\n3 - sudo apt upgrade -y\n4 - sudo apt autoremove\n5 - update & upgrade -y\n0 - Выход \n\nВведите значение: "))
@@ -752,7 +754,29 @@ def linux():
             print("Введите корректное значение.")
             print("\n")
         q = int(input("Линукс команды\n1 - Установка софта через apt\n2 - apt\n3 - Системные команды\n0 - Выход\n\nВведите значение: "))
-        # c()
+        c()
+@d
+def todo():
+    todo = []
+    def printTodo():
+        a = 0
+        for i in todo:
+            print(a + 1, "-", todo[a])
+            a += 1
+    printTodo()
+    print("Введите номер задания чтобы отметить его как выполненое, введите N для создания нового или 0 для выхода: ")
+    q =  input().lower()
+    c()
+    while q != "0":
+        if q == "n":
+            q = input("Введите задание: ")
+            todo.append(q)
+        else:
+            del todo[int(q) - 1]
+        c()
+        printTodo()
+        q = input("").lower()
+
 #запуск
 if config.get("setup"):
     setup()
