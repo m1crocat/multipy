@@ -10,7 +10,7 @@ from subprocess import call
 import turtle
 #стабильные переменные
 current_version = "4.2.1 beta"
-version_date = "11.09.24"
+version_date = "12.09.24"
 slogan = "\n да"
 prnt_unix = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Список изменений\n 5 - Linux\n 6 - Настройки\n\n 0 - Выход"
 prnt_other = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Cписок изменений\n 5 - Настройки\n\n 0 - Выход"
@@ -207,7 +207,7 @@ def debug():
 def changelog():#я
     print(" Changelog")
     print(f">>{current_version} - {version_date}<<")
-    print(">>Обновленный интерфейс\nНовые настройки\nНовое все<<.")
+    print(">>Багфикс\nТу-Ду лист<<.")
     input("\n\nНажмите Enter чтобы продолжить. ") 
 @d
 def info():#я
@@ -496,7 +496,6 @@ def nazad():
     print("Ваша строка:",done)
     input("\n\nНажмите Enter чтобы продолжить: ")
 @d
-
 def igraUgadaika():#я
     count1 = 1
     print("Угадайте число от 1 до 100! (Введите 0 если хотите сдаться)")
@@ -520,7 +519,6 @@ def igraUgadaika():#я
         print("Вы угадали!")
         print("Количество попыток:", count1)
         input("\n\nНажмите Enter чтобы продолжить. ") 
- 
 @d
 def paintgpt():
     spd = int(input("Введите скорость: "))
