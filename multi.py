@@ -9,8 +9,8 @@ from json import dump, load
 from subprocess import call
 import turtle
 #стабильные переменные
-current_version = "4.2.2 stable"
-version_date = "08.12.24"
+current_version = "4.2.3 stable"
+version_date = "11.12.24"
 slogan = "\n да"
 prnt_unix = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Список изменений\n 5 - Linux\n 6 - Настройки\n\n 0 - Выход"
 prnt_other = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Cписок изменений\n 5 - Настройки\n\n 0 - Выход"
@@ -150,6 +150,7 @@ def setup():
     if q == 1:
         saveDumpConfig("show_errors", True)
     # c()
+    saveDumpConfig("setup", False)
     print("Настройка завершена! Перезапуск...")
     sleep(1)
     reboot()
@@ -204,7 +205,7 @@ def debug():
 def changelog():#я
     print(" Changelog")
     print(f">>{current_version} - {version_date}<<")
-    print(">>Багфикс\nТу-Ду лист<<.")
+    print(">>Багфикс установщика<<.")
     input("\n\nНажмите Enter чтобы продолжить. ") 
 @d
 def info():#я
