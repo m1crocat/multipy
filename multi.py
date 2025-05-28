@@ -9,9 +9,9 @@ from json import dump, load
 from subprocess import call
 import turtle
 #стабильные переменные
-current_version = "4.2.3 stable"
-version_date = "11.12.24"
-slogan = "\n да"
+current_version = "4.2.4 stable"
+version_date = "28.05.25"
+slogan = "\n давно это было.. "
 prnt_unix = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Список изменений\n 5 - Linux\n 6 - Настройки\n\n 0 - Выход"
 prnt_other = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Cписок изменений\n 5 - Настройки\n\n 0 - Выход"
 defaultConfig = {"setup": False, "tips": False, "show_errors": False}
@@ -89,30 +89,30 @@ def mpy():
  {slogan}
 """)
     print(prnt)
-    ipt = int(input("\nВыберите действие: "))
+    ipt = str(input("\nВыберите действие: "))
     while ipt != 0:
-        if ipt == 1:
+        if ipt == "1":
             one()
-        elif ipt == 2:
+        elif ipt == "2":
             two()
-        elif ipt == 3:
+        elif ipt == "3":
             info()
-        elif ipt == 4:
+        elif ipt == "4":
             changelog()
-        elif ipt == 5 and name == "posix":
+        elif ipt == "5" and name == "posix":
             linux()
-        elif ipt == 5 and name == "nt":
+        elif ipt == "5" and name == "nt":
             settings()
-        elif ipt == 6:
+        elif ipt == "6":
             settings()
-        elif ipt == 123:
+        elif ipt == "00010010":
             debug()
-        elif ipt == 0:
+        elif ipt == "0":
             break
         else:
             print("Введите корректное значение")
         print(prnt)
-        ipt = int(input("\nВыберите значение: "))
+        ipt = input("\nВыберите значениеs: ")
 def saveDumpConfig(a, b):
     try:
         config[a] = b
@@ -130,6 +130,11 @@ def saveDumpConfig(a, b):
 def restoreDefaultSettings():
     saveDumpConfig("tips", False)
     saveDumpConfig("show_errors", False)
+@d
+def restoreSetupSettings():
+    saveDumpConfig("tips", False)
+    saveDumpConfig("show_errors", False)
+    saveDumpConfig("setup", True)
 @d
 def setupReboot():
     saveDumpConfig("setup", True)
@@ -187,7 +192,7 @@ def reboot(): #
         exit()
 @d
 def debug():
-    q = int(input("Дебаг меню\n1 - Удалить конфигфайл\n2 - Перезапустить\n3 - Открыть setup\n4 - Запустить restoreDefaultSettings\n5 - openConfig\nВведите значение: "))
+    q = int(input("Дебаг меню\n1 - Удалить конфигфайл\n2 - Перезапустить\n3 - Открыть setup\n4 - Восстановить настройки по умолчанию (restoreDefaultSettings)\n5 - запустить openConfig\n6 - Восстановить настройки как с github (restoreSetupSettings)\n0 - Выход\nВведите значение: "))
     while q != "":
         if q == 1:
             remove(config_path)
@@ -199,13 +204,17 @@ def debug():
             restoreDefaultSettings()
         elif q == 5:
             openConfig()
-        q = int(input("Дебаг меню\n1 - Удалить конфигфайл\n2 - Перезапустить\n3 - Открыть setup\n4 - Запустить restoreDefaultSettings\nВведите значение: "))
+        elif q == 6:
+            restoreSetupSettings()
+        elif q == 0:
+            break
+        q = int(input("Дебаг меню\n1 - Удалить конфигфайл\n2 - Перезапустить\n3 - Открыть setup\n4 - Восстановить настройки по умолчанию (restoreDefaultSettings)\n5 - запустить openConfig\n6 - Восстановить настройки как с github (restoreSetupSettings)\n0 - Выход\nВведите значение: "))
 #основные функции по списку
 @d
 def changelog():#я
     print(" Changelog")
     print(f">>{current_version} - {version_date}<<")
-    print(">>Багфикс установщика<<.")
+    print(">>переделка меню для разработчиков<<.")
     input("\n\nНажмите Enter чтобы продолжить. ") 
 @d
 def info():#я
