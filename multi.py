@@ -9,8 +9,8 @@ from json import dump, load
 from subprocess import call
 import turtle
 #стабильные переменные
-current_version = "4.2.4 stable"
-version_date = "28.05.25"
+current_version = "4.2.5 stable"
+version_date = "30.05.25"
 slogan = "\n давно это было.. "
 prnt_unix = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Список изменений\n 5 - Linux\n 6 - Настройки\n\n 0 - Выход"
 prnt_other = " 1 - Утилиты\n 2 - Игры\n 3 - О программе\n 4 - Cписок изменений\n 5 - Настройки\n\n 0 - Выход"
@@ -21,7 +21,7 @@ else:
     prnt = prnt_other
 clear_command = "clear"
 config_path = path.join(path.dirname(path.abspath(__file__)), "config.json")
-framework_path = path.join(path.dirname(path.abspath(__file__)), "framework")
+framework_path = path.join(path.dirname(path.abspath(__file__)), "framework") #как это давно было.. жаль так и не реализовал идею фреймворка
 #жизненно важные функции
 def openConfig():
     while True:
@@ -112,7 +112,7 @@ def mpy():
         else:
             print("Введите корректное значение")
         print(prnt)
-        ipt = input("\nВыберите значениеs: ")
+        ipt = input("\nВыберите значение: ")
 def saveDumpConfig(a, b):
     try:
         config[a] = b
@@ -130,6 +130,11 @@ def saveDumpConfig(a, b):
 def restoreDefaultSettings():
     saveDumpConfig("tips", False)
     saveDumpConfig("show_errors", False)
+@d
+def printConfig():
+    print("show_errors:",config.get("show_errors"))
+    print("tips:",config.get("tips"))
+    print("setup:",config.get("setup"))
 @d
 def restoreSetupSettings():
     saveDumpConfig("tips", False)
@@ -192,7 +197,7 @@ def reboot(): #
         exit()
 @d
 def debug():
-    q = int(input("Дебаг меню\n1 - Удалить конфигфайл\n2 - Перезапустить\n3 - Открыть setup\n4 - Восстановить настройки по умолчанию (restoreDefaultSettings)\n5 - запустить openConfig\n6 - Восстановить настройки как с github (restoreSetupSettings)\n0 - Выход\nВведите значение: "))
+    q = int(input("Дебаг меню\n1 - Удалить конфигфайл\n2 - Перезапустить\n3 - Открыть setup\n4 - Восстановить настройки по умолчанию (restoreDefaultSettings)\n5 - запустить openConfig\n6 - Восстановить настройки как с github (restoreSetupSettings)\n7 - Отобразить конфиг\n0 - Выход\nВведите значение: "))
     while q != "":
         if q == 1:
             remove(config_path)
@@ -206,15 +211,18 @@ def debug():
             openConfig()
         elif q == 6:
             restoreSetupSettings()
+        elif q == 7:
+            printConfig()
         elif q == 0:
             break
-        q = int(input("Дебаг меню\n1 - Удалить конфигфайл\n2 - Перезапустить\n3 - Открыть setup\n4 - Восстановить настройки по умолчанию (restoreDefaultSettings)\n5 - запустить openConfig\n6 - Восстановить настройки как с github (restoreSetupSettings)\n0 - Выход\nВведите значение: "))
+        q = int(input("Дебаг меню\n1 - Удалить конфигфайл\n2 - Перезапустить\n3 - Открыть setup\n4 - Восстановить настройки по умолчанию (restoreDefaultSettings)\n5 - запустить openConfig\n6 - Восстановить настройки как с github (restoreSetupSettings)\n7 - Отобразить конфиг\n0 - Выход\nВведите значение: "))
 #основные функции по списку
 @d
 def changelog():#я
     print(" Changelog")
     print(f">>{current_version} - {version_date}<<")
-    print(">>переделка меню для разработчиков<<.")
+    print(">>добавил функцию в меню для разработчиков<<.")
+    print(">>багфикс<<")
     input("\n\nНажмите Enter чтобы продолжить. ") 
 @d
 def info():#я
@@ -784,7 +792,10 @@ def todo():
         q = input("").lower()
 
 #запуск
-if config.get("setup"):
-    setup()
+try:
+    if config.get("setup"):
+        setup()
+except AttributeError:
+    print("Конфиг не был восстановлен по какой-либо причине. Переустановите программу.")
 else:
     mpy()
